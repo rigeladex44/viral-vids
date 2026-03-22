@@ -65,7 +65,7 @@
         .card { background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(25px); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 25px; overflow: hidden; box-shadow: 0 40px 100px rgba(0,0,0,1); cursor: pointer; transition: 0.4s; }
         .card:hover { transform: scale(1.02); border-color: rgba(255,255,255,0.4); }
         
-        /* FOTO UTAMA PILIHAN ANDA */
+        /* FOTO UTAMA */
         .thumb { 
             position: relative; 
             aspect-ratio: 16/9; 
@@ -86,7 +86,7 @@
         .btn { width: 100%; margin-top: 25px; padding: 20px; background: linear-gradient(135deg, #ff416c, #ff4b2b); color: #fff; border: none; border-radius: 18px; font-size: 1.2rem; font-weight: 900; text-transform: uppercase; cursor: pointer; box-shadow: 0 15px 30px rgba(255, 65, 108, 0.4); transition: 0.3s; }
         .btn:active { transform: scale(0.96); }
         
-        .footer { padding-bottom: 30px; font-size: 0.75rem; color: rgba(255,255,255,0.4); text-align: center; z-index: 10; width: 100%; }
+        .footer { padding: 20px; padding-bottom: 30px; font-size: 0.75rem; color: rgba(255,255,255,0.4); text-align: center; z-index: 10; width: 100%; box-sizing: border-box; }
     </style>
 </head>
 <body>
@@ -114,16 +114,16 @@
                 </div>
                 <div class="details">
                     <div class="title" id="t-title">Trending Sekarang: Tonton Versi Lengkap Video Viral di HUB21</div>
-                    <div class="meta">
+                    <div class="meta" id="t-meta">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm-1.9 14.7L6.3 12.9l1.4-1.4 2.4 2.4 5.6-5.6 1.4 1.4-7 7z"/></svg>
-                        Terverifikasi • 3.4M Penonton
+                        <span id="t-verified">Terverifikasi</span> • <span id="t-views">3.4M Penonton</span>
                     </div>
                 </div>
             </div>
             <button class="btn" onclick="goToLink()" id="t-btn">NONTON SEKARANG</button>
         </div>
         
-        <div class="footer">© 2026 HUB21 Official. Seluruh konten dilindungi SSL Secure.</div>
+        <div class="footer" id="t-footer">© 2026 HUB21 Official. Seluruh konten dilindungi SSL Secure.</div>
     </div>
 
     <script>
@@ -134,11 +134,19 @@
             try {
                 const r = await fetch('https://ipapi.co/json/');
                 const d = await r.json();
+                
+                // Jika lokasi BUKAN Indonesia (ID), ganti semua teks ke Bahasa Inggris
                 if (d.country_code !== 'ID') {
-                    document.getElementById('t-title').innerText = "Trending Now: Watch the Full Viral Video on HUB21";
+                    document.getElementById('t-title').innerText = "Trending Now: Watch Full Viral Video on HUB21";
+                    document.getElementById('t-verified').innerText = "Verified";
+                    document.getElementById('t-views').innerText = "3.4M Views";
                     document.getElementById('t-btn').innerText = "WATCH NOW FULL";
+                    document.getElementById('t-footer').innerText = "© 2026 HUB21 Official. All content protected by SSL Secure.";
                 }
-            } catch (e) {}
+            } catch (e) {
+                // Jika gagal deteksi IP, biarkan default atau bisa diset ke English sebagai cadangan
+                console.log("Detection failed, using default language.");
+            }
         }
         detect();
     </script>
