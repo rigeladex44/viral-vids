@@ -6,10 +6,11 @@
     
     <!-- Meta Tags Branding HUB21 -->
     <title>HUB21 - Trending Video Center</title>
-    <meta name="description" content="Watch viral trending videos on HUB21.">
+    <meta name="description" content="Nonton video viral terbaru di HUB21.">
     <meta property="og:title" content="HUB21 | Official Video Player">
     <meta property="og:url" content="https://hub21.online">
-    <meta property="og:image" content="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=1000">
+    <!-- Gambar Unsplash Pilihan Anda -->
+    <meta property="og:image" content="https://plus.unsplash.com/premium_photo-1683141440843-53f051bf4095?q=80&w=1000&auto=format&fit=crop">
 
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
@@ -27,8 +28,8 @@
             grid-template-columns: repeat(3, 1fr);
             gap: 10px;
             padding: 10px;
-            opacity: 0.25;
-            filter: blur(4px);
+            opacity: 0.2;
+            filter: blur(5px);
             z-index: 1;
             overflow: hidden;
         }
@@ -64,7 +65,16 @@
         .card { background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(25px); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 25px; overflow: hidden; box-shadow: 0 40px 100px rgba(0,0,0,1); cursor: pointer; transition: 0.4s; }
         .card:hover { transform: scale(1.02); border-color: rgba(255,255,255,0.4); }
         
-        .thumb { position: relative; aspect-ratio: 16/9; background: url('https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=1000') center/cover; display: flex; justify-content: center; align-items: center; }
+        /* FOTO UTAMA PILIHAN ANDA */
+        .thumb { 
+            position: relative; 
+            aspect-ratio: 16/9; 
+            background: url('https://plus.unsplash.com/premium_photo-1683141440843-53f051bf4095?q=80&w=1000&auto=format&fit=crop') center/cover; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+        }
+        
         .play-btn { width: 75px; height: 75px; background: linear-gradient(135deg, #ff416c, #ff4b2b); border-radius: 50%; display: flex; justify-content: center; align-items: center; box-shadow: 0 0 40px rgba(255, 65, 108, 0.7); animation: pulse 2s infinite; }
         
         @keyframes pulse { 0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 65, 108, 0.7); } 70% { transform: scale(1.1); box-shadow: 0 0 0 20px rgba(255, 65, 108, 0); } 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 65, 108, 0); } }
@@ -83,22 +93,16 @@
     <div id="wrapper">
         <!-- FAKE VIDEO GRID BACKGROUND -->
         <div class="bg-grid-overlay">
-            <div class="bg-item" style="background-image: url('https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=400&auto=format&fit=crop');"></div>
-            <div class="bg-item" style="background-image: url('https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?q=80&w=400&auto=format&fit=crop');"></div>
-            <div class="bg-item" style="background-image: url('https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=400&auto=format&fit=crop');"></div>
-            <div class="bg-item" style="background-image: url('https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?q=80&w=400&auto=format&fit=crop');"></div>
-            <div class="bg-item" style="background-image: url('https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=400&auto=format&fit=crop');"></div>
-            <div class="bg-item" style="background-image: url('https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=400&auto=format&fit=crop');"></div>
-            <div class="bg-item" style="background-image: url('https://images.unsplash.com/photo-1524250502761-1ac6f2e30d43?q=80&w=400&auto=format&fit=crop');"></div>
-            <div class="bg-item" style="background-image: url('https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?q=80&w=400&auto=format&fit=crop');"></div>
-            <div class="bg-item" style="background-image: url('https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=400&auto=format&fit=crop');"></div>
+            <div class="bg-item" style="background-image: url('https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=400');"></div>
+            <div class="bg-item" style="background-image: url('https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?q=80&w=400');"></div>
+            <div class="bg-item" style="background-image: url('https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=400');"></div>
+            <div class="bg-item" style="background-image: url('https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?q=80&w=400');"></div>
+            <div class="bg-item" style="background-image: url('https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=400');"></div>
+            <div class="bg-item" style="background-image: url('https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=400');"></div>
         </div>
 
         <header>
             <div class="logo"><span>HUB</span>21</div>
-            <div style="opacity: 0.6;">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="white"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>
-            </div>
         </header>
         
         <div class="container">
