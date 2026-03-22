@@ -24,23 +24,104 @@
             width: 100vw !important;
             height: 100vh !important;
             display: flex !important;
-            justify-content: center !important;
+            flex-direction: column !important;
+            justify-content: flex-start !important;
             align-items: center !important;
             z-index: 999999 !important;
             background: #000;
-            /* Background Halaman - Foto Lifestyle Mewah */
-            background-image: linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.75)), url('https://images.unsplash.com/photo-1566417713940-0e81f05014b4?q=80&w=1000&auto=format&fit=crop') !important;
-            background-size: cover !important;
-            background-position: center !important;
             color: #ffffff !important;
             font-family: 'Inter', sans-serif !important;
         }
 
+        /* FAKE VIDEO BACKGROUND GRID */
+        .bg-grid-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            padding: 10px;
+            opacity: 0.3;
+            filter: blur(3px);
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .bg-item {
+            aspect-ratio: 16/9;
+            background-size: cover;
+            background-position: center;
+            border-radius: 8px;
+            background-color: #222;
+            position: relative;
+        }
+
+        .bg-item::after {
+            content: '▶';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: rgba(255,255,255,0.5);
+            font-size: 1.2rem;
+        }
+
+        /* HEADER STYLING */
+        .site-header {
+            width: 100%;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            z-index: 100;
+        }
+
+        .logo {
+            font-weight: 800;
+            font-size: 1.2rem;
+            letter-spacing: -0.5px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            text-transform: uppercase;
+        }
+
+        .logo span {
+            background: #ff0000;
+            padding: 2px 6px;
+            border-radius: 4px;
+            color: #fff;
+        }
+
+        .header-icons {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .header-icons svg {
+            width: 22px;
+            height: 22px;
+            fill: #fff;
+            opacity: 0.8;
+        }
+
+        /* CONTAINER CONTENT */
         .container {
             width: 90%;
             max-width: 420px;
             text-align: center;
+            margin-top: auto;
+            margin-bottom: auto;
             animation: fadeIn 0.8s ease-out;
+            z-index: 10;
         }
 
         @keyframes fadeIn {
@@ -50,13 +131,13 @@
 
         /* Video Card Design */
         .video-card {
-            background: rgba(0, 0, 0, 0.6) !important;
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.15) !important;
+            background: rgba(0, 0, 0, 0.75) !important;
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.2) !important;
             border-radius: 28px !important;
             overflow: hidden !important;
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8) !important;
+            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.9) !important;
             cursor: pointer !important;
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             width: 100%;
@@ -64,7 +145,7 @@
 
         .video-card:hover {
             transform: scale(1.02);
-            border-color: rgba(255, 255, 255, 0.3) !important;
+            border-color: rgba(255, 255, 255, 0.4) !important;
         }
 
         .thumbnail-container {
@@ -77,7 +158,6 @@
             align-items: center;
         }
 
-        /* FOTO THUMBNAIL - Foto Sexy/Model Menarik */
         .thumbnail-img {
             position: absolute;
             width: 100%;
@@ -86,7 +166,7 @@
             background-image: url('https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=1000&auto=format&fit=crop');
             background-size: cover;
             background-position: center top;
-            opacity: 0.85;
+            opacity: 0.9;
         }
 
         .play-button {
@@ -186,15 +266,43 @@
         }
 
         .footer {
-            margin-top: 20px;
+            padding: 20px;
             font-size: 0.7rem;
-            color: rgba(255,255,255,0.4);
+            color: rgba(255,255,255,0.5);
+            width: 100%;
+            text-align: center;
+            z-index: 10;
         }
     </style>
 </head>
 <body>
 
     <div id="lp-main-wrapper">
+        <!-- FAKE VIDEO GRID BACKGROUND -->
+        <div class="bg-grid-overlay">
+            <div class="bg-item" style="background-image: url('https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=400&auto=format&fit=crop');"></div>
+            <div class="bg-item" style="background-image: url('https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?q=80&w=400&auto=format&fit=crop');"></div>
+            <div class="bg-item" style="background-image: url('https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=400&auto=format&fit=crop');"></div>
+            <div class="bg-item" style="background-image: url('https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?q=80&w=400&auto=format&fit=crop');"></div>
+            <div class="bg-item" style="background-image: url('https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=400&auto=format&fit=crop');"></div>
+            <div class="bg-item" style="background-image: url('https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=400&auto=format&fit=crop');"></div>
+            <div class="bg-item" style="background-image: url('https://images.unsplash.com/photo-1524250502761-1ac6f2e30d43?q=80&w=400&auto=format&fit=crop');"></div>
+            <div class="bg-item" style="background-image: url('https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?q=80&w=400&auto=format&fit=crop');"></div>
+            <div class="bg-item" style="background-image: url('https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=400&auto=format&fit=crop');"></div>
+            <div class="bg-item" style="background-image: url('https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?q=80&w=400&auto=format&fit=crop');"></div>
+            <div class="bg-item" style="background-image: url('https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=400&auto=format&fit=crop');"></div>
+            <div class="bg-item" style="background-image: url('https://images.unsplash.com/photo-1554151228-14d9def656e4?q=80&w=400&auto=format&fit=crop');"></div>
+        </div>
+
+        <!-- HEADER BAR -->
+        <header class="site-header">
+            <div class="logo"><span id="logo-main">VIRAL</span><span id="logo-sub">HUB</span></div>
+            <div class="header-icons">
+                <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
+                <svg viewBox="0 0 24 24"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>
+            </div>
+        </header>
+
         <div class="container">
             <!-- Card Utama -->
             <div class="video-card" id="triggerArea">
@@ -223,19 +331,39 @@
 
             <!-- Tombol -->
             <button class="cta-button" id="btnAction">NONTON VIDEO FULL</button>
-
-            <p class="footer" id="text-footer">Konten ini mungkin mengandung promosi. Klik akan membuka pemutar video di tab baru.</p>
         </div>
+
+        <p class="footer" id="text-footer">Konten ini dilindungi oleh sistem keamanan tinggi. Pastikan koneksi internet Anda stabil untuk memutar video.</p>
     </div>
 
     <script>
         const adsterraLink = "https://www.profitablecpmratenetwork.com/pkp342mg?key=0bf25c7a02603fde63db389f32858bae";
 
         const translations = {
-            "ID": { live: "LANGSUNG", title: "Viral: Video Terbaru Yang Lagi Rame! (Klik Nonton Full)", verified: "Terverifikasi", views: "2.1M Penonton", button: "NONTON VIDEO FULL", footer: "Video akan dibuka di tab baru. Pastikan koneksi stabil." },
-            "US": { live: "LIVE", title: "Viral: New Trending Video! (Click to Watch Full)", verified: "Verified", views: "2.1M Views", button: "WATCH FULL VIDEO", footer: "Video will open in a new tab. Fast connection recommended." },
-            "ES": { live: "EN VIVO", title: "Viral: ¡Nuevo Video Tendencia! (Clic Para Ver)", verified: "Verificado", views: "2.1M Vistas", button: "VER VIDEO COMPLETO", footer: "El video se abrirá en una pestaña nueva." },
-            "BR": { live: "AO VIVO", title: "Viral: Novo Vídeo Bombando! (Clique Para Ver)", verified: "Verificado", views: "2.1M Visualizações", button: "ASSISTIR AGORA", footer: "O vídeo abrirá em uma nova aba." }
+            "ID": { 
+                logo1: "VIRAL", logo2: "HUB", live: "LANGSUNG", 
+                title: "Viral: Video Terbaru Yang Lagi Rame! (Klik Nonton Full)", 
+                verified: "Terverifikasi", views: "2.1M Penonton", button: "NONTON VIDEO FULL", 
+                footer: "Konten ini dilindungi oleh sistem keamanan tinggi. Pastikan koneksi internet Anda stabil untuk memutar video." 
+            },
+            "US": { 
+                logo1: "TRENDING", logo2: "HUB", live: "LIVE", 
+                title: "Viral: New Trending Video! (Click to Watch Full)", 
+                verified: "Verified", views: "2.1M Views", button: "WATCH FULL VIDEO", 
+                footer: "Content is protected by advanced security. Ensure a stable connection to play." 
+            },
+            "ES": { 
+                logo1: "TENDENCIA", logo2: "HUB", live: "EN VIVO", 
+                title: "Viral: ¡Nuevo Video Tendencia! (Clic Para Ver)", 
+                verified: "Verificado", views: "2.1M Vistas", button: "VER VIDEO COMPLETO", 
+                footer: "Contenido protegido oleh seguridad avanzada. Conexión estable recomendada." 
+            },
+            "BR": { 
+                logo1: "TENDÊNCIA", logo2: "HUB", live: "AO VIVO", 
+                title: "Viral: Novo Vídeo Bombando! (Clique Para Ver)", 
+                verified: "Verificado", views: "2.1M Visualizações", button: "ASSISTIR AGORA", 
+                footer: "Conteúdo protegido oleh segurança. Conexão estável recomendada." 
+            }
         };
 
         async function initPage() {
@@ -245,6 +373,8 @@
                 const cc = data.country_code;
                 const lang = translations[cc] || translations["US"];
 
+                document.getElementById('logo-main').innerText = lang.logo1;
+                document.getElementById('logo-sub').innerText = lang.logo2;
                 document.getElementById('text-live').innerText = lang.live;
                 document.getElementById('text-title').innerText = lang.title;
                 document.getElementById('text-verified').innerText = lang.verified;
@@ -252,7 +382,7 @@
                 document.getElementById('btnAction').innerText = lang.button;
                 document.getElementById('text-footer').innerText = lang.footer;
             } catch (e) {
-                console.log("Using default language");
+                console.log("Using default language (US)");
             }
         }
 
