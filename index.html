@@ -4,442 +4,82 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     
-    <!-- Meta Tags untuk hub21.online -->
-    <title>HUB21 - Official Video Hub</title>
-    <meta name="description" content="Watch the latest trending viral videos on HUB21. Exclusive access to full versions.">
-    <meta property="og:title" content="HUB21 | Trending Video Player">
-    <meta property="og:description" content="Watch the full version of today's viral video on HUB21.">
+    <!-- Meta Tags Branding HUB21 -->
+    <title>HUB21 - Trending Video Center</title>
+    <meta name="description" content="Watch viral trending videos on HUB21.">
+    <meta property="og:title" content="HUB21 | Official Video Player">
     <meta property="og:url" content="https://hub21.online">
     <meta property="og:image" content="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=1000">
-    <meta property="og:type" content="website">
 
-    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
-        /* Reset & Force Full Screen */
-        html, body {
-            margin: 0 !important;
-            padding: 0 !important;
-            width: 100% !important;
-            height: 100% !important;
-            overflow: hidden !important;
-            background-color: #000 !important;
-        }
+        html, body { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background-color: #000; }
+        #wrapper { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; display: flex; flex-direction: column; align-items: center; background: #000; background-image: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)), url('https://images.unsplash.com/photo-1566417713940-0e81f05014b4?q=80&w=1000'); background-size: cover; background-position: center; color: #fff; font-family: 'Inter', sans-serif; }
+        
+        /* Header */
+        header { width: 100%; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(255, 255, 255, 0.1); box-sizing: border-box; }
+        .logo { font-weight: 800; font-size: 1.3rem; text-transform: uppercase; }
+        .logo span { background: #ff0000; padding: 2px 8px; border-radius: 4px; margin-right: 4px; }
 
-        #lp-main-wrapper {
-            position: fixed !important;
-            top: 0 !important;
-            left: 0 !important;
-            width: 100vw !important;
-            height: 100vh !important;
-            display: flex !important;
-            flex-direction: column !important;
-            justify-content: flex-start !important;
-            align-items: center !important;
-            z-index: 999999 !important;
-            background: #000;
-            color: #ffffff !important;
-            font-family: 'Inter', sans-serif !important;
-        }
-
-        /* LOADING OVERLAY */
-        #loading-screen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: #000;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000000;
-            transition: opacity 0.5s ease;
-        }
-
-        .loader {
-            border: 4px solid #333;
-            border-top: 4px solid #ff0000;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-
-        /* FAKE VIDEO BACKGROUND GRID */
-        .bg-grid-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-            padding: 10px;
-            opacity: 0.25;
-            filter: blur(4px);
-            z-index: -1;
-            overflow: hidden;
-        }
-
-        .bg-item {
-            aspect-ratio: 16/9;
-            background-size: cover;
-            background-position: center;
-            border-radius: 8px;
-            background-color: #1a1a1a;
-            position: relative;
-        }
-
-        /* HEADER STYLING */
-        .site-header {
-            width: 100%;
-            padding: 15px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            z-index: 100;
-        }
-
-        .logo {
-            font-weight: 800;
-            font-size: 1.3rem;
-            letter-spacing: -1px;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            text-transform: uppercase;
-        }
-
-        .logo span {
-            background: #ff0000;
-            padding: 2px 8px;
-            border-radius: 4px;
-            color: #fff;
-        }
-
-        .header-icons {
-            display: flex;
-            gap: 15px;
-            align-items: center;
-        }
-
-        .header-icons svg {
-            width: 22px;
-            height: 22px;
-            fill: #fff;
-            opacity: 0.8;
-        }
-
-        /* CONTAINER CONTENT */
-        .container {
-            width: 90%;
-            max-width: 420px;
-            text-align: center;
-            margin-top: auto;
-            margin-bottom: auto;
-            animation: fadeIn 1s ease-out;
-            z-index: 10;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Video Card Design */
-        .video-card {
-            background: rgba(0, 0, 0, 0.8) !important;
-            backdrop-filter: blur(25px);
-            -webkit-backdrop-filter: blur(25px);
-            border: 1px solid rgba(255, 255, 255, 0.2) !important;
-            border-radius: 28px !important;
-            overflow: hidden !important;
-            box-shadow: 0 40px 100px rgba(0, 0, 0, 1) !important;
-            cursor: pointer !important;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            width: 100%;
-        }
-
-        .video-card:hover {
-            transform: scale(1.03);
-            border-color: rgba(255, 255, 255, 0.4) !important;
-        }
-
-        .thumbnail-container {
-            position: relative;
-            width: 100%;
-            aspect-ratio: 16/9;
-            background: #000;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .thumbnail-img {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            background-image: url('https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=1000&auto=format&fit=crop');
-            background-size: cover;
-            background-position: center top;
-            opacity: 0.95;
-        }
-
-        .play-button {
-            position: relative;
-            z-index: 10;
-            width: 85px;
-            height: 85px;
-            background: linear-gradient(135deg, #ff416c 0%, #ff4b2b 100%) !important;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            box-shadow: 0 0 50px rgba(255, 75, 43, 0.8);
-            animation: pulse 2s infinite;
-        }
-
-        .play-button svg {
-            fill: white;
-            width: 40px;
-            height: 40px;
-            margin-left: 6px;
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 75, 43, 0.8); }
-            70% { transform: scale(1.1); box-shadow: 0 0 0 25px rgba(255, 75, 43, 0); }
-            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 75, 43, 0); }
-        }
-
-        .live-badge {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            background: #ff0000;
-            padding: 6px 14px;
-            border-radius: 8px;
-            font-size: 0.75rem;
-            font-weight: 800;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            z-index: 20;
-            box-shadow: 0 4px 15px rgba(255,0,0,0.4);
-        }
-
-        .live-dot {
-            width: 10px;
-            height: 10px;
-            background: white;
-            border-radius: 50%;
-            animation: blink 0.8s infinite;
-        }
-
-        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
-
-        .info-section {
-            padding: 25px;
-            text-align: left;
-        }
-
-        .video-title {
-            font-size: 1.25rem;
-            font-weight: 800;
-            line-height: 1.4;
-            margin-bottom: 15px;
-            color: #fff;
-        }
-
-        .meta-data {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            font-size: 0.9rem;
-            color: #bbb;
-        }
-
-        .verified {
-            color: #3897f0;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            font-weight: 700;
-        }
-
-        .cta-button {
-            width: 100%;
-            margin-top: 30px;
-            padding: 22px;
-            background: linear-gradient(135deg, #ff416c 0%, #ff4b2b 100%) !important;
-            color: white !important;
-            border: none !important;
-            border-radius: 20px !important;
-            font-size: 1.2rem !important;
-            font-weight: 900 !important;
-            text-transform: uppercase !important;
-            letter-spacing: 1px;
-            cursor: pointer !important;
-            box-shadow: 0 15px 40px rgba(255, 75, 43, 0.5) !important;
-            transition: 0.3s;
-        }
-
-        .cta-button:active { transform: scale(0.96); }
-
-        .footer {
-            padding: 30px;
-            font-size: 0.75rem;
-            color: rgba(255,255,255,0.4);
-            width: 100%;
-            text-align: center;
-            z-index: 10;
-        }
+        /* Content */
+        .container { width: 90%; max-width: 420px; text-align: center; margin: auto; z-index: 10; }
+        .card { background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 25px; overflow: hidden; box-shadow: 0 30px 60px rgba(0,0,0,0.8); cursor: pointer; }
+        .thumb { position: relative; aspect-ratio: 16/9; background: url('https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=1000') center/cover; display: flex; justify-content: center; align-items: center; }
+        .play-btn { width: 70px; height: 70px; background: linear-gradient(135deg, #ff416c, #ff4b2b); border-radius: 50%; display: flex; justify-content: center; align-items: center; box-shadow: 0 0 30px rgba(255, 65, 108, 0.6); animation: pulse 2s infinite; }
+        
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
+        
+        .details { padding: 20px; text-align: left; }
+        .title { font-size: 1.1rem; font-weight: 800; margin-bottom: 5px; }
+        .meta { font-size: 0.8rem; color: #3897f0; font-weight: 700; }
+        
+        .btn { width: 100%; margin-top: 20px; padding: 18px; background: linear-gradient(135deg, #ff416c, #ff4b2b); color: #fff; border: none; border-radius: 15px; font-size: 1.1rem; font-weight: 900; text-transform: uppercase; cursor: pointer; box-shadow: 0 10px 20px rgba(255, 65, 108, 0.3); }
+        
+        .footer { padding-bottom: 20px; font-size: 0.7rem; color: rgba(255,255,255,0.4); text-align: center; }
     </style>
 </head>
 <body>
-
-    <!-- LOADING SCREEN -->
-    <div id="loading-screen">
-        <div class="loader"></div>
-        <p style="margin-top: 20px; font-size: 0.8rem; color: #666;" id="text-loading">Memeriksa Keamanan...</p>
-    </div>
-
-    <div id="lp-main-wrapper">
-        <!-- FAKE VIDEO GRID BACKGROUND -->
-        <div class="bg-grid-overlay">
-            <div class="bg-item" style="background-image: url('https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=400&auto=format&fit=crop');"></div>
-            <div class="bg-item" style="background-image: url('https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?q=80&w=400&auto=format&fit=crop');"></div>
-            <div class="bg-item" style="background-image: url('https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=400&auto=format&fit=crop');"></div>
-            <div class="bg-item" style="background-image: url('https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?q=80&w=400&auto=format&fit=crop');"></div>
-            <div class="bg-item" style="background-image: url('https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=400&auto=format&fit=crop');"></div>
-            <div class="bg-item" style="background-image: url('https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=400&auto=format&fit=crop');"></div>
-            <div class="bg-item" style="background-image: url('https://images.unsplash.com/photo-1524250502761-1ac6f2e30d43?q=80&w=400&auto=format&fit=crop');"></div>
-            <div class="bg-item" style="background-image: url('https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?q=80&w=400&auto=format&fit=crop');"></div>
-            <div class="bg-item" style="background-image: url('https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=400&auto=format&fit=crop');"></div>
-        </div>
-
-        <!-- HEADER BAR -->
-        <header class="site-header">
-            <div class="logo"><span id="logo-main">HUB</span><span id="logo-sub">21</span></div>
-            <div class="header-icons">
-                <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
-                <svg viewBox="0 0 24 24"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>
+    <div id="wrapper">
+        <header>
+            <div class="logo"><span>HUB</span>21</div>
+            <div style="opacity: 0.6;">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="white"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>
             </div>
         </header>
-
+        
         <div class="container">
-            <!-- Card Utama -->
-            <div class="video-card" id="triggerArea">
-                <div class="thumbnail-container">
-                    <div class="live-badge">
-                        <div class="live-dot"></div> <span id="text-live">LIVE</span>
-                    </div>
-                    <div class="thumbnail-img"></div>
-                    <div class="play-button">
-                        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            <div class="card" onclick="goToLink()">
+                <div class="thumb">
+                    <div class="play-btn">
+                        <svg width="35" height="35" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg>
                     </div>
                 </div>
-                
-                <div class="info-section">
-                    <div class="video-title" id="text-title">Trending Sekarang: Tonton Versi Lengkap Video Viral di HUB21</div>
-                    <div class="meta-data">
-                        <span class="verified">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm-1.9 14.7L6.3 12.9l1.4-1.4 2.4 2.4 5.6-5.6 1.4 1.4-7 7z"/></svg>
-                            <span id="text-verified">Terverifikasi</span>
-                        </span>
-                        <span>•</span>
-                        <span id="text-views">3.4M Penonton</span>
-                    </div>
+                <div class="details">
+                    <div class="title" id="t-title">Trending: Nonton Video Viral Full Version di HUB21</div>
+                    <div class="meta">✓ Terverifikasi • 3.4M Penonton</div>
                 </div>
             </div>
-
-            <!-- Tombol -->
-            <button class="cta-button" id="btnAction">NONTON VIDEO FULL</button>
+            <button class="btn" onclick="goToLink()" id="t-btn">NONTON SEKARANG</button>
         </div>
-
-        <div class="footer">
-            <p id="text-footer">Layanan HUB21 dilindungi oleh enkripsi SSL. Pastikan kuota mencukupi untuk memutar video kualitas HD.</p>
-        </div>
+        
+        <div class="footer">© 2026 HUB21. Seluruh konten dilindungi SSL Secure.</div>
     </div>
 
     <script>
-        const adsterraLink = "https://www.profitablecpmratenetwork.com/pkp342mg?key=0bf25c7a02603fde63db389f32858bae";
+        const link = "https://www.profitablecpmratenetwork.com/pkp342mg?key=0bf25c7a02603fde63db389f32858bae";
+        function goToLink() { window.open(link, '_blank'); }
 
-        const translations = {
-            "ID": { 
-                logo1: "HUB", logo2: "21", live: "LANGSUNG", loading: "Memeriksa Keamanan...",
-                title: "Trending Sekarang: Tonton Versi Lengkap Video Viral di HUB21", 
-                verified: "Terverifikasi", views: "3.4M Penonton", button: "NONTON VIDEO FULL", 
-                footer: "Layanan HUB21 dilindungi oleh enkripsi SSL. Pastikan kuota mencukupi untuk memutar video kualitas HD." 
-            },
-            "US": { 
-                logo1: "HUB", logo2: "21", live: "LIVE", loading: "Verifying Access...",
-                title: "Trending Now: Watch the Full Viral Video on HUB21", 
-                verified: "Verified", views: "3.4M Views", button: "WATCH FULL VIDEO", 
-                footer: "HUB21 is protected by SSL encryption. Fast connection recommended for HD playback." 
-            },
-            "ES": { 
-                logo1: "HUB", logo2: "21", live: "EN VIVO", loading: "Verificando Seguridad...",
-                title: "Tendencia Ahora: Ver Video Viral Completo en HUB21", 
-                verified: "Verificado", views: "3.4M Vistas", button: "VER VIDEO COMPLETO", 
-                footer: "El servicio HUB21 está protegido por SSL. Conexión estable recomendada." 
-            },
-            "BR": { 
-                logo1: "HUB", logo2: "21", live: "AO VIVO", loading: "Verificando Segurança...",
-                title: "Bombando Agora: Assista ao Vídeo Viral Completo no HUB21", 
-                verified: "Verificado", views: "3.4M Visualizações", button: "ASSISTIR AGORA", 
-                footer: "O serviço HUB21 é protegido por criptografia SSL. Recomenda-se internet rápida." 
-            }
-        };
-
-        async function initPage() {
+        async function detect() {
             try {
-                const response = await fetch('https://ipapi.co/json/');
-                const data = await response.json();
-                const cc = data.country_code;
-                const lang = translations[cc] || translations["US"];
-
-                document.getElementById('logo-main').innerText = lang.logo1;
-                document.getElementById('logo-sub').innerText = lang.logo2;
-                document.getElementById('text-live').innerText = lang.live;
-                document.getElementById('text-loading').innerText = lang.loading;
-                document.getElementById('text-title').innerText = lang.title;
-                document.getElementById('text-verified').innerText = lang.verified;
-                document.getElementById('text-views').innerText = lang.views;
-                document.getElementById('btnAction').innerText = lang.button;
-                document.getElementById('text-footer').innerText = lang.footer;
-
-                setTimeout(() => {
-                    const screen = document.getElementById('loading-screen');
-                    if (screen) {
-                        screen.style.opacity = '0';
-                        setTimeout(() => screen.style.display = 'none', 500);
-                    }
-                }, 1500);
-
-            } catch (e) {
-                const screen = document.getElementById('loading-screen');
-                if (screen) screen.style.display = 'none';
-            }
+                const r = await fetch('https://ipapi.co/json/');
+                const d = await r.json();
+                if (d.country_code !== 'ID') {
+                    document.getElementById('t-title').innerText = "Trending: Watch Full Viral Video on HUB21";
+                    document.getElementById('t-btn').innerText = "WATCH NOW FULL";
+                }
+            } catch (e) {}
         }
-
-        function doRedirect() {
-            window.open(adsterraLink, '_blank');
-        }
-
-        document.getElementById('triggerArea').addEventListener('click', doRedirect);
-        document.getElementById('btnAction').addEventListener('click', doRedirect);
-        initPage();
+        detect();
     </script>
 </body>
 </html>
