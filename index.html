@@ -14,32 +14,86 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
         html, body { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background-color: #000; }
-        #wrapper { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; display: flex; flex-direction: column; align-items: center; background: #000; background-image: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)), url('https://images.unsplash.com/photo-1566417713940-0e81f05014b4?q=80&w=1000'); background-size: cover; background-position: center; color: #fff; font-family: 'Inter', sans-serif; }
+        #wrapper { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; display: flex; flex-direction: column; align-items: center; background: #000; color: #fff; font-family: 'Inter', sans-serif; }
         
+        /* FAKE VIDEO BACKGROUND GRID */
+        .bg-grid-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            padding: 10px;
+            opacity: 0.25;
+            filter: blur(4px);
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .bg-item {
+            aspect-ratio: 16/9;
+            background-size: cover;
+            background-position: center;
+            border-radius: 8px;
+            background-color: #1a1a1a;
+            position: relative;
+        }
+
+        .bg-item::after {
+            content: '▶';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: rgba(255,255,255,0.4);
+            font-size: 1.2rem;
+        }
+
         /* Header */
-        header { width: 100%; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(255, 255, 255, 0.1); box-sizing: border-box; }
+        header { width: 100%; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(15px); border-bottom: 1px solid rgba(255, 255, 255, 0.1); box-sizing: border-box; z-index: 100; }
         .logo { font-weight: 800; font-size: 1.3rem; text-transform: uppercase; }
         .logo span { background: #ff0000; padding: 2px 8px; border-radius: 4px; margin-right: 4px; }
 
         /* Content */
-        .container { width: 90%; max-width: 420px; text-align: center; margin: auto; z-index: 10; }
-        .card { background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 25px; overflow: hidden; box-shadow: 0 30px 60px rgba(0,0,0,0.8); cursor: pointer; }
+        .container { width: 90%; max-width: 420px; text-align: center; margin: auto; z-index: 10; animation: fadeIn 1s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        .card { background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(25px); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 25px; overflow: hidden; box-shadow: 0 40px 100px rgba(0,0,0,1); cursor: pointer; transition: 0.4s; }
+        .card:hover { transform: scale(1.02); border-color: rgba(255,255,255,0.4); }
+        
         .thumb { position: relative; aspect-ratio: 16/9; background: url('https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=1000') center/cover; display: flex; justify-content: center; align-items: center; }
-        .play-btn { width: 70px; height: 70px; background: linear-gradient(135deg, #ff416c, #ff4b2b); border-radius: 50%; display: flex; justify-content: center; align-items: center; box-shadow: 0 0 30px rgba(255, 65, 108, 0.6); animation: pulse 2s infinite; }
+        .play-btn { width: 75px; height: 75px; background: linear-gradient(135deg, #ff416c, #ff4b2b); border-radius: 50%; display: flex; justify-content: center; align-items: center; box-shadow: 0 0 40px rgba(255, 65, 108, 0.7); animation: pulse 2s infinite; }
         
-        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
+        @keyframes pulse { 0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 65, 108, 0.7); } 70% { transform: scale(1.1); box-shadow: 0 0 0 20px rgba(255, 65, 108, 0); } 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 65, 108, 0); } }
         
-        .details { padding: 20px; text-align: left; }
-        .title { font-size: 1.1rem; font-weight: 800; margin-bottom: 5px; }
-        .meta { font-size: 0.8rem; color: #3897f0; font-weight: 700; }
+        .details { padding: 25px; text-align: left; }
+        .title { font-size: 1.15rem; font-weight: 800; margin-bottom: 8px; line-height: 1.4; }
+        .meta { font-size: 0.85rem; color: #3897f0; font-weight: 700; display: flex; align-items: center; gap: 5px; }
         
-        .btn { width: 100%; margin-top: 20px; padding: 18px; background: linear-gradient(135deg, #ff416c, #ff4b2b); color: #fff; border: none; border-radius: 15px; font-size: 1.1rem; font-weight: 900; text-transform: uppercase; cursor: pointer; box-shadow: 0 10px 20px rgba(255, 65, 108, 0.3); }
+        .btn { width: 100%; margin-top: 25px; padding: 20px; background: linear-gradient(135deg, #ff416c, #ff4b2b); color: #fff; border: none; border-radius: 18px; font-size: 1.2rem; font-weight: 900; text-transform: uppercase; cursor: pointer; box-shadow: 0 15px 30px rgba(255, 65, 108, 0.4); transition: 0.3s; }
+        .btn:active { transform: scale(0.96); }
         
-        .footer { padding-bottom: 20px; font-size: 0.7rem; color: rgba(255,255,255,0.4); text-align: center; }
+        .footer { padding-bottom: 30px; font-size: 0.75rem; color: rgba(255,255,255,0.4); text-align: center; z-index: 10; width: 100%; }
     </style>
 </head>
 <body>
     <div id="wrapper">
+        <!-- FAKE VIDEO GRID BACKGROUND -->
+        <div class="bg-grid-overlay">
+            <div class="bg-item" style="background-image: url('https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=400&auto=format&fit=crop');"></div>
+            <div class="bg-item" style="background-image: url('https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?q=80&w=400&auto=format&fit=crop');"></div>
+            <div class="bg-item" style="background-image: url('https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=400&auto=format&fit=crop');"></div>
+            <div class="bg-item" style="background-image: url('https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?q=80&w=400&auto=format&fit=crop');"></div>
+            <div class="bg-item" style="background-image: url('https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=400&auto=format&fit=crop');"></div>
+            <div class="bg-item" style="background-image: url('https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=400&auto=format&fit=crop');"></div>
+            <div class="bg-item" style="background-image: url('https://images.unsplash.com/photo-1524250502761-1ac6f2e30d43?q=80&w=400&auto=format&fit=crop');"></div>
+            <div class="bg-item" style="background-image: url('https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?q=80&w=400&auto=format&fit=crop');"></div>
+            <div class="bg-item" style="background-image: url('https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=400&auto=format&fit=crop');"></div>
+        </div>
+
         <header>
             <div class="logo"><span>HUB</span>21</div>
             <div style="opacity: 0.6;">
@@ -51,18 +105,21 @@
             <div class="card" onclick="goToLink()">
                 <div class="thumb">
                     <div class="play-btn">
-                        <svg width="35" height="35" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg>
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg>
                     </div>
                 </div>
                 <div class="details">
-                    <div class="title" id="t-title">Trending: Nonton Video Viral Full Version di HUB21</div>
-                    <div class="meta">✓ Terverifikasi • 3.4M Penonton</div>
+                    <div class="title" id="t-title">Trending Sekarang: Tonton Versi Lengkap Video Viral di HUB21</div>
+                    <div class="meta">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm-1.9 14.7L6.3 12.9l1.4-1.4 2.4 2.4 5.6-5.6 1.4 1.4-7 7z"/></svg>
+                        Terverifikasi • 3.4M Penonton
+                    </div>
                 </div>
             </div>
             <button class="btn" onclick="goToLink()" id="t-btn">NONTON SEKARANG</button>
         </div>
         
-        <div class="footer">© 2026 HUB21. Seluruh konten dilindungi SSL Secure.</div>
+        <div class="footer">© 2026 HUB21 Official. Seluruh konten dilindungi SSL Secure.</div>
     </div>
 
     <script>
@@ -74,7 +131,7 @@
                 const r = await fetch('https://ipapi.co/json/');
                 const d = await r.json();
                 if (d.country_code !== 'ID') {
-                    document.getElementById('t-title').innerText = "Trending: Watch Full Viral Video on HUB21";
+                    document.getElementById('t-title').innerText = "Trending Now: Watch the Full Viral Video on HUB21";
                     document.getElementById('t-btn').innerText = "WATCH NOW FULL";
                 }
             } catch (e) {}
